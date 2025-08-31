@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>REX•MARKET — Jual Beli Akun</title>
+<style>
+body {margin:0;font-family:sans-serif;color:#0f0;overflow-x:hidden;background:#000;}
+#bgVideo {position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:-1;opacity:0.4;}
+header, footer {padding:15px 20px;background:rgba(0,0,0,0.7);color:#0f0;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0f0;}
+footer{border-top:2px solid #0f0;border-bottom:none;}
+h1{margin:0}
+main{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:20px;position:relative;z-index:1}
+.col{display:flex;flex-direction:column;gap:15px}
+.card{background:rgba(0,0,0,0.5);padding:15px;border-radius:10px;box-shadow:0 2px 6px rgba(0,255,0,.3);border:2px solid #0f0;transition:.2s;}
+.card:hover{transform:translateY(-5px);box-shadow:0 0 15px #0f0;}
+.thumb{height:100px;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:rgba(0,0,0,0.5);}
+.thumb img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.title{font-weight:bold;margin:10px 0 5px;color:#0f0}
+.meta{font-size:13px;color:#aaa}
+.price{font-weight:bold;margin-top:5px;color:#0f0}
+.btn{background:#0f0;color:#000;border:0;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:13px}
+</style>
+</head>
+<body>
+<!-- Video Background -->
+<video id="bgVideo" autoplay muted loop>
+  <source src="https://files.catbox.moe/p5h1ua.mp4" type="video/mp4">
+</video>
+
+<header>
+<h1>REX•MARKET</h1>
+</header>
+
+<main>
+  <div class="col" id="colLeft"></div>
+  <div class="col" id="colRight"></div>
+</main>
+
+<footer>
+<div>© <span id="year"></span> REX•MARKET</div>
+<div>WEB MARKETPLACE</div>
+</footer>
+
+<script>
+// Nomor WA
+const nomorWA = "6282337427842";
+
+// Data akun
+const data=[
+{id:1,title:'Akun Blox Fruits',platform:'Blox Fruits',price:15000,desc:'Free Miytical Fruits, level 1400',seller:'zyee',img:'https://files.catbox.moe/4brw9w.png'},
+{id:2,title:'Akun Blox Fruit',platform:'Roblox',price:20000,desc:'Money banyak stok/fragment terbatas',seller:'Rex',img:'https://files.catbox.moe/hiurvc.png'},
+{id:3,title:'Akun blox fruits',platform:'Bf',price:25000,desc:'akun blox fruits lvl 2750',seller:'taka',img:'https://files.catbox.moe/kuir91.png'}
+];
+
+// Render akun
+function render(){
+  const left=document.getElementById("colLeft");
+  const right=document.getElementById("colRight");
+  left.innerHTML=""; right.innerHTML="";
+  data.forEach((d,i)=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`
+      <div class="thumb"><img src="${d.img}" alt="${d.title}"></div>
+      <div class="title">${d.title}</div>
+      <div class="meta">Seller: ${d.seller}</div>
+      <div class="meta">${d.desc}</div>
+      <div class="price">Rp ${d.price.toLocaleString()}</div>
+      <button class="btn" onclick="beliWA('${d.title}', ${d.price})">Beli</button>
+    `;
+    if(i%2===0){left.appendChild(card);}else{right.appendChild(card);}
+  });
+}
+
+// Fungsi beli WA
+function beliWA(title, price){
+  const pesan = `Halo, saya ingin membeli:\n\n${title}\nHarga: Rp ${price.toLocaleString()}`;
+  const url = `https://wa.me/${nomorWA}?text=${encodeURIComponent(pesan)}`;
+  window.open(url,"_blank");
+}
+
+// Tahun footer
+document.getElementById("year").textContent=new Date().getFullYear();
+
+// Render awal
+render();
+</script>
+</body>
+</html>
