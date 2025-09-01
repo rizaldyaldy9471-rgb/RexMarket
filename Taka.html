@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>REX•MARKET — Jual Beli Akun</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      color: #c77dff;
+      overflow-x: hidden;
+      /* Gambar background yang kamu beri */
+      background: #000 url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk2hN6E4l0vZ38tBqbDEotTj4-UR3uz3VbHExRH6PMp4UcmoG3KPiP06OT&s=10') no-repeat center center fixed;
+      background-size: cover;
+    }
+    header, footer {
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #c77dff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #a855f7;
+      box-shadow: 0 0 15px #a855f7;
+    }
+    footer {
+      border-top: 2px solid #a855f7;
+      border-bottom: none;
+    }
+    h1 {
+      margin: 0;
+    }
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .col {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px solid #a855f7;
+      box-shadow: 0 0 12px #a855f7, inset 0 0 8px #a855f7;
+      transition: 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px #a855f7, inset 0 0 12px #a855f7;
+    }
+    .thumb {
+      height: 100px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #a855f7;
+      box-shadow: 0 0 10px #a855f7;
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .title {
+      font-weight: bold;
+      margin: 10px 0 5px;
+      color: #e0c3fc;
+    }
+    .meta {
+      font-size: 13px;
+      color: #aaa;
+    }
+    .price {
+      font-weight: bold;
+      margin-top: 5px;
+      color: #c77dff;
+    }
+    .btn {
+      background: #a855f7;
+      color: #000;
+      border: 0;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: bold;
+      box-shadow: 0 0 12px #a855f7;
+      transition: 0.2s;
+    }
+    .btn:hover {
+      background: #e0c3fc;
+      box-shadow: 0 0 20px #e0c3fc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>REX•MARKET</h1>
+  </header>
+
+  <main>
+    <div class="col" id="colLeft"></div>
+    <div class="col" id="colRight"></div>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> REX•MARKET</div>
+    <div>WEB MARKETPLACE</div>
+  </footer>
+
+  <script>
+    const nomorWA = "6282337427842";
+    const data = [
+      {id:1, title:'Akun Blox Fruits', platform:'Blox Fruits', price:15000, desc:'Free Mythical Fruits, level 1400', seller:'zyee', img:'https://files.catbox.moe/4brw9w.png'},
+      {id:2, title:'Akun Roblox', platform:'Roblox', price:20000, desc:'Uang banyak & stok terbatas', seller:'Rex', img:'https://files.catbox.moe/hiurvc.png'},
+      {id:3, title:'Akun BF Level 2750', platform:'Blox Fruit', price:25000, desc:'Level tinggi & ready jual', seller:'taka', img:'https://files.catbox.moe/kuir91.png'}
+    ];
+
+    function render() {
+      const left = document.getElementById("colLeft");
+      const right = document.getElementById("colRight");
+      left.innerHTML = "";
+      right.innerHTML = "";
+
+      data.forEach((d, i) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="thumb"><img src="${d.img}" alt="${d.title}"></div>
+          <div class="title">${d.title}</div>
+          <div class="meta">Seller: ${d.seller}</div>
+          <div class="meta">${d.desc}</div>
+          <div class="price">Rp ${d.price.toLocaleString()}</div>
+          <button class="btn" onclick="beliWA('${d.title}', ${d.price})">Beli</button>
+        `;
+        if (i % 2 === 0) left.appendChild(card);
+        else right.appendChild(card);
+      });
+    }
+
+    function beliWA(title, price) {
+      const msg = `Halo, saya ingin membeli:\n\n${title}\nHarga: Rp ${price.toLocaleString()}`;
+      const url = `https://wa.me/${nomorWA}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    render();
+  </script>
+</body>
+</html>
